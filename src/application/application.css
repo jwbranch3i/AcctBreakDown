@@ -1,0 +1,32 @@
+
+GridPane
+{
+	-fx-grid-lines-visible:true;
+}
+
+StackPane
+{
+	-fx-background-color: lightblue;
+	
+}
+
+#hbox_Total
+{
+	-fx-border-width:3;	
+	-fx-border-style:solid;
+}
+#totalLabel
+{
+	-fx-font-size:18px;
+}
+
+#gtotalLabel1
+{
+	-fx-font-size:24;
+	-fx-font-weight:bold;
+}
+
+#gtotalLabel2
+{
+	-fx-font-size:24;
+}

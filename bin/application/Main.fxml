@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane prefHeight="632.0" prefWidth="812.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.MainController">
+   <center>
+      <VBox alignment="CENTER" spacing="20.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox id="hbox_Total" alignment="BOTTOM_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="200.0" VBox.vgrow="NEVER">
+               <children>
+                  <Label id="gTotalLabel1" text="Total:">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font></Label>
+                  <Label id="gTotalLabel2" fx:id="totalAcct" alignment="BASELINE_LEFT" text="Label">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <padding>
+                        <Insets left="15.0" />
+                     </padding></Label>
+               </children>
+               <padding>
+                  <Insets bottom="10.0" left="50.0" />
+               </padding>
+            </HBox>
+            <GridPane alignment="CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="900.0" VBox.vgrow="NEVER">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <StackPane GridPane.halignment="CENTER">
+                     <children>
+                        <Label id="totalLabel" text="Gas" textAlignment="CENTER" />
+                     </children>
+                  </StackPane>
+                  <StackPane GridPane.columnIndex="1" GridPane.halignment="CENTER">
+                     <children>
+                        <Label id="totalLabel" text="Service" textAlignment="CENTER" />
+                     </children>
+                  </StackPane>
+                  <StackPane GridPane.columnIndex="2" GridPane.halignment="CENTER">
+                     <children>
+                        <Label id="totalLabel" text="John" textAlignment="CENTER" />
+                     </children>
+                  </StackPane>
+                  <StackPane GridPane.columnIndex="3" GridPane.halignment="CENTER">
+                     <children>
+                        <Label id="totalLabel" text="Pastor" textAlignment="CENTER" />
+                     </children>
+                  </StackPane>
+                  <StackPane GridPane.columnIndex="4" GridPane.halignment="CENTER">
+                     <children>
+                        <Label id="totalLabel" text="Med" textAlignment="CENTER" />
+                     </children>
+                  </StackPane>
+                  <StackPane GridPane.columnIndex="5" GridPane.halignment="CENTER">
+                     <children>
+                        <Label id="totalLabel" text="School" textAlignment="CENTER" />
+                     </children>
+                  </StackPane>
+                  <StackPane GridPane.columnIndex="6" GridPane.halignment="CENTER">
+                     <children>
+                        <Label id="totalLabel" text="Misc" textAlignment="CENTER" />
+                     </children>
+                  </StackPane>
+                  <Label fx:id="totalGas" text="totalGas" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                  <Label fx:id="totalService" text="totalService" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                  <Label fx:id="totalJohn" text="totalJohn" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                  <Label fx:id="totalPastor" text="totalPastor" textAlignment="CENTER" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                  <Label fx:id="totalMed" text="totalMed" textAlignment="CENTER" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                  <Label fx:id="totalSchool" text="totalSchool" textAlignment="CENTER" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                  <Label fx:id="totalMisc" text="totalMisc" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+               </children>
+            </GridPane>
+            <TableView fx:id="table" editable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" VBox.vgrow="NEVER">
+              <columns>
+                <TableColumn fx:id="colDate" maxWidth="400.0" prefWidth="75.0" sortable="false" text="Date" />
+
+                <TableColumn fx:id="colDiscription" editable="true" maxWidth="400.0" prefWidth="300.0" text="Discription" />
+                  <TableColumn fx:id="colGas" editable="true" maxWidth="400.0" prefWidth="75.0" text="Gas" />
+                  <TableColumn fx:id="colService" editable="true" maxWidth="400.0" prefWidth="75.0" text="Service" />
+                  <TableColumn fx:id="colJohn" editable="true" maxWidth="400.0" prefWidth="75.0" text="John" />
+                  <TableColumn fx:id="colPastor" editable="true" maxWidth="400.0" prefWidth="75.0" text="Pastor" />
+                  <TableColumn fx:id="colMed" editable="true" maxWidth="400.0" prefWidth="75.0" text="Med" />
+                  <TableColumn fx:id="colSchool" editable="true" maxWidth="400.0" prefWidth="75.0" text="School" />
+                  <TableColumn fx:id="colMisc" editable="true" maxWidth="400.0" prefWidth="75.0" text="Misc" />
+                  <TableColumn id="totalColumn" fx:id="colTransactionTotal" editable="false" maxWidth="400.0" prefWidth="75.0" text="Total" />
+              </columns>
+            </TableView>
+         </children>
+      </VBox>
+   </center>
+</BorderPane>
