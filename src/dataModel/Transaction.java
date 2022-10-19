@@ -17,7 +17,47 @@ public class Transaction
 
 	private double tax;
 	private double saving;
+	private double saving_other;
 	private double transactionTotal;
+
+	public Transaction(int id, LocalDate date, String discription, double gas, double service, double john,
+					double pastor, double med, double school, double misc, double tax=0d, double saving,
+					double saving_other)
+	{
+		this._id = id;
+		this.date = date;;
+		this.discription = discription;
+		this.gas = gas;
+		this.service = service;
+		this.john = john;
+		this.pastor = pastor;
+		this.med = med;
+		this.school = school;
+		this.misc = misc;
+
+		this.tax = tax;
+		this.saving = saving;
+		this.saving_other = saving_other;
+	}
+
+	public Transaction(int id, LocalDate date, String discription, double gas, double service, double john, double pastor, double med, double school, double misc)
+	{
+		this._id = id;
+		this.date = date;
+		;
+		this.discription = discription;
+		this.gas = gas;
+		this.service = service;
+		this.john = john;
+		this.pastor = pastor;
+		this.med = med;
+		this.school = school;
+		this.misc = misc;
+
+		this.tax = 0d;
+		this.saving = 0d;
+		this.saving_other = 0d;
+	}
 
 	public Transaction()
 	{

@@ -10,6 +10,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import dataModel.TransactionData;
+
 public class AcctData
 {
 
@@ -30,7 +32,7 @@ public class AcctData
 	public static final String COL_TRANSACTIONS_SCHOOL = "school";
 	public static final String COL_TRANSACTIONS_MISC = "misc";
 	public static final String COL_TRANSACTIONS_TAX = "tax";
-	public static final String COL_TRANSACTIONS_SAVINGS = "savings";
+	public static final String COL_TRANSACTIONS_SAVING = "savings";
 	public static final String COL_TRANSACTIONS_SAVINGS_OTHER = "savings_other";
 
 	public static final int INDEX_TRANSACTIONS_ID = 1;
@@ -155,7 +157,7 @@ public class AcctData
 	public List<TransactionData> queryTransactions(int sortOrder)
 	{
 		StringBuilder sb = new StringBuilder("SELECT ");
-		sb.append("_id, date, discription, gas, service ,john, pastor, med, school, misc FROM ");
+		sb.append("_id, date, discription, gas, service ,john, pastor, med, school, misc, tax, saving, saving_other FROM ");
 		sb.append(TABLE_TRANSACTIONS);
 		if (sortOrder != ORDER_BY_NONE)
 			;
@@ -171,28 +173,30 @@ public class AcctData
 				sb.append(" ASC");
 			}
 		}
-		System.out.println(sb);
+		System.out.println("AccData.java - " + sb);
 
 		try (Statement statement = conn.createStatement(); ResultSet results = statement.executeQuery(sb.toString()))
 		{
 			List<TransactionData> list = new ArrayList<TransactionData>();
 			while (results.next())
 			{
-				TransactionData transaction = new TransactionData();
-				transaction.set_id(results.getInt(INDEX_TRANSACTIONS_ID));
-				transaction.setTransactionDate(LocalDate.parse(results.getString(INDEX_TRANSACTIONS_DATE)));
-				transaction.setDiscription(results.getString(INDEX_TRANSACTIONS_DISCRIPTION));
-				transaction.setGas(results.getDouble(INDEX_TRANSACTIONS_GAS));
-				transaction.setService(results.getDouble(INDEX_TRANSACTIONS_SERVICE));
-				transaction.setJohn(results.getDouble(INDEX_TRANSACTIONS_JOHN));
-				transaction.setPastor(results.getDouble(INDEX_TRANSACTIONS_PASTOR));
-				transaction.setMed(results.getDouble(INDEX_TRANSACTIONS_MED));
-				transaction.setSchool(results.getDouble(INDEX_TRANSACTIONS_SCHOOL));
-				transaction.setMisc(results.getDouble(INDEX_TRANSACTIONS_MISC));
-
-				// System.out.println(transaction);
-				list.add(transaction);
-				// addToTotal(transaction);
+				Transaction currentTrans = new Transaction(results.getInt(INDEX_TRANSACTIONS_ID,
+								LocalDate.parse(results.getString(INDEX_TRANSACTIONS_DATE)),
+								results.getString(INDEX_TRANSACTIONS_DISCRIPTION),
+								results.getDouble(INDEX_TRANSACTIONS_GAS),
+								results.getDouble(INDEX_TRANSACTIONS_SERVICE),
+								results.getDouble(INDEX_TRANSACTIONS_JOHN),
+								results.getDouble(INDEX_TRANSACTIONS_PASTOR),
+								results.getDouble(INDEX_TRANSACTIONS_MED),
+								results.getDouble(INDEX_TRANSACTIONS_SCHOOL),
+								results.getDouble(INDEX_TRANSACTIONS_MISC),
+								results.getDouble(INDEX_TRANSACTIONS_TAX),
+								results.getDouble(INDEX_TRANSACTIONS_SAVING),
+								results.getDouble(INDEX_TRANSACTIONS_OTHER));
+				
+				TransactionData transactionData = new TransactionData(currentTrans);
+				
+				list.add(transactionData);
 			}
 			return list;
 		}

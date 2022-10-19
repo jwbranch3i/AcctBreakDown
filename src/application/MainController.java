@@ -20,6 +20,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.util.converter.LocalDateStringConverter;
 import tableEditFiles.EditCell;
+import tableEditFiles.MyDoubleStringConverter;
 
 public class MainController
 {
@@ -88,7 +89,7 @@ public class MainController
 		colDate.setCellValueFactory(new PropertyValueFactory<TransactionData, LocalDate>("date"));
 		colDate.setCellFactory(EditCell.<TransactionData, LocalDate>forTableColumn(new LocalDateStringConverter()));
 
-		colDate.setCellFactory(TextFieldTableCell.forTableColumn());
+		// colDate.setCellFactory(TextFieldTableCell.forTableColumn());
 		colDate.setOnEditCommit(e -> colDate_OnEditCommit(e));
 
 		colDiscription.setCellValueFactory(new PropertyValueFactory<TransactionData, String>("discription"));
@@ -96,41 +97,48 @@ public class MainController
 		colDiscription.setOnEditCommit(e -> colDiscription_OnEditCommit((Event) e));
 
 		colGas.setCellValueFactory(new PropertyValueFactory<TransactionData, Double>("gas"));
-		colGas.setCellFactory(TextFieldTableCell.forTableColumn());
+		// colGas.setCellFactory(TextFieldTableCell.forTableColumn());
+		colGas.setCellFactory(EditCell.<TransactionData, Double>forTableColumn(new MyDoubleStringConverter()));
 		colGas.setOnEditCommit(e -> colGas_OnEditCommit((Event) e));
 		colGas.setStyle("-fx-alignment: CENTER-RIGHT");
 
-		colService.setCellValueFactory(new PropertyValueFactory<TransactionData, String>("service"));
-		colService.setCellFactory(TextFieldTableCell.forTableColumn());
+		colService.setCellValueFactory(new PropertyValueFactory<TransactionData, Double>("service"));
+		// colService.setCellFactory(TextFieldTableCell.forTableColumn());
+		colService.setCellFactory(EditCell.<TransactionData, Double>forTableColumn(new MyDoubleStringConverter()));
 		colService.setOnEditCommit(e -> colService_OnEditCommit((Event) e));
 		colService.setStyle("-fx-alignment: CENTER-RIGHT");
 
-		colJohn.setCellValueFactory(new PropertyValueFactory<TransactionData, String>("john"));
-		colJohn.setCellFactory(TextFieldTableCell.forTableColumn());
+		colJohn.setCellValueFactory(new PropertyValueFactory<TransactionData, Double>("john"));
+		// colJohn.setCellFactory(TextFieldTableCell.forTableColumn());
+		colJohn.setCellFactory(EditCell.<TransactionData, Double>forTableColumn(new MyDoubleStringConverter()));
 		colJohn.setOnEditCommit(e -> colJohn_OnEditCommit((Event) e));
 		colJohn.setStyle("-fx-alignment: CENTER-RIGHT");
 
-		colPastor.setCellValueFactory(new PropertyValueFactory<TransactionData, String>("pastor"));
-		colPastor.setCellFactory(TextFieldTableCell.forTableColumn());
+		colPastor.setCellValueFactory(new PropertyValueFactory<TransactionData, Double>("pastor"));
+		// colPastor.setCellFactory(TextFieldTableCell.forTableColumn());
+		colPastor.setCellFactory(EditCell.<TransactionData, Double>forTableColumn(new MyDoubleStringConverter()));
 		colPastor.setOnEditCommit(e -> colPastor_OnEditCommit((Event) e));
 		colPastor.setStyle("-fx-alignment: CENTER-RIGHT");
 
-		colMed.setCellValueFactory(new PropertyValueFactory<TransactionData, String>("med"));
-		colMed.setCellFactory(TextFieldTableCell.forTableColumn());
+		colMed.setCellValueFactory(new PropertyValueFactory<TransactionData, Double>("med"));
+		// colMed.setCellFactory(TextFieldTableCell.forTableColumn());
+		colMed.setCellFactory(EditCell.<TransactionData, Double>forTableColumn(new MyDoubleStringConverter()));
 		colMed.setOnEditCommit(e -> colMed_OnEditCommit((Event) e));
 		colMed.setStyle("-fx-alignment: CENTER-RIGHT");
 
-		colSchool.setCellValueFactory(new PropertyValueFactory<TransactionData, String>("school"));
-		colSchool.setCellFactory(TextFieldTableCell.forTableColumn());
+		colSchool.setCellValueFactory(new PropertyValueFactory<TransactionData, Double>("school"));
+		// colSchool.setCellFactory(TextFieldTableCell.forTableColumn());
+		colSchool.setCellFactory(EditCell.<TransactionData, Double>forTableColumn(new MyDoubleStringConverter()));
 		colSchool.setOnEditCommit(e -> colSchool_OnEditCommit((Event) e));
 		colSchool.setStyle("-fx-alignment: CENTER-RIGHT");
 
-		colMisc.setCellValueFactory(new PropertyValueFactory<TransactionData, String>("misc"));
-		colMisc.setCellFactory(TextFieldTableCell.forTableColumn());
+		colMisc.setCellValueFactory(new PropertyValueFactory<TransactionData, Double>("misc"));
+		// colMisc.setCellFactory(TextFieldTableCell.forTableColumn());
+		colMisc.setCellFactory(EditCell.<TransactionData, Double>forTableColumn(new MyDoubleStringConverter()));
 		colMisc.setOnEditCommit(e -> colMisc_OnEditCommit((Event) e));
 		colMisc.setStyle("-fx-alignment: CENTER-RIGHT");
 
-		colTransactionTotal.setCellValueFactory(new PropertyValueFactory<TransactionData, String>("transactionTotal"));
+		colTransactionTotal.setCellValueFactory(new PropertyValueFactory<TransactionData, Double>("transactionTotal"));
 		colTransactionTotal.setStyle("-fx-alignment: CENTER-RIGHT");
 
 	}
