@@ -1,9 +1,11 @@
 package application;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import dataModel.AcctData;
-import dataModel.Transaction;
+import dataModel.TransactionData;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
@@ -16,41 +18,43 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.util.converter.LocalDateStringConverter;
+import tableEditFiles.EditCell;
 
 public class MainController
 {
 	@FXML
-	private TableView<Transaction> table;
+	private TableView<TransactionData> table;
 
 	@FXML
-	private TableColumn<Transaction, String> colDate;
+	private TableColumn<TransactionData, LocalDate> colDate;
 
 	@FXML
-	private TableColumn<Transaction, String> colDiscription;
+	private TableColumn<TransactionData, String> colDiscription;
 
 	@FXML
-	private TableColumn<Transaction, String> colGas;
+	private TableColumn<TransactionData, Double> colGas;
 
 	@FXML
-	private TableColumn<Transaction, String> colService;
+	private TableColumn<TransactionData, Double> colService;
 
 	@FXML
-	private TableColumn<Transaction, String> colJohn;
+	private TableColumn<TransactionData, Double> colJohn;
 
 	@FXML
-	private TableColumn<Transaction, String> colPastor;
+	private TableColumn<TransactionData, Double> colPastor;
 
 	@FXML
-	private TableColumn<Transaction, String> colMed;
+	private TableColumn<TransactionData, Double> colMed;
 
 	@FXML
-	private TableColumn<Transaction, String> colSchool;
+	private TableColumn<TransactionData, Double> colSchool;
 
 	@FXML
-	private TableColumn<Transaction, String> colMisc;
+	private TableColumn<TransactionData, Double> colMisc;
 
 	@FXML
-	private TableColumn<Transaction, String> colTransactionTotal;
+	private TableColumn<TransactionData, Double> colTransactionTotal;
 
 	@FXML
 	private Label totalGas;
@@ -76,52 +80,57 @@ public class MainController
 	@FXML
 	private Label totalAcct;
 
+	private static final String DATE_PATTERN = "MM/dd/yyy";
+	private static final SimpleDateFormat DATE_FORMATTER = new SimpleDateFormat(DATE_PATTERN);
+
 	public void initialize()
 	{
-		colDate.setCellValueFactory(new PropertyValueFactory<Transaction, String>("transactionDate"));
+		colDate.setCellValueFactory(new PropertyValueFactory<TransactionData, LocalDate>("date"));
+		colDate.setCellFactory(EditCell.<TransactionData, LocalDate>forTableColumn(new LocalDateStringConverter()));
+
 		colDate.setCellFactory(TextFieldTableCell.forTableColumn());
 		colDate.setOnEditCommit(e -> colDate_OnEditCommit(e));
 
-		colDiscription.setCellValueFactory(new PropertyValueFactory<Transaction, String>("discription"));
+		colDiscription.setCellValueFactory(new PropertyValueFactory<TransactionData, String>("discription"));
 		colDiscription.setCellFactory(TextFieldTableCell.forTableColumn());
 		colDiscription.setOnEditCommit(e -> colDiscription_OnEditCommit((Event) e));
 
-		colGas.setCellValueFactory(new PropertyValueFactory<Transaction, String>("gas"));
+		colGas.setCellValueFactory(new PropertyValueFactory<TransactionData, Double>("gas"));
 		colGas.setCellFactory(TextFieldTableCell.forTableColumn());
 		colGas.setOnEditCommit(e -> colGas_OnEditCommit((Event) e));
 		colGas.setStyle("-fx-alignment: CENTER-RIGHT");
 
-		colService.setCellValueFactory(new PropertyValueFactory<Transaction, String>("service"));
+		colService.setCellValueFactory(new PropertyValueFactory<TransactionData, String>("service"));
 		colService.setCellFactory(TextFieldTableCell.forTableColumn());
 		colService.setOnEditCommit(e -> colService_OnEditCommit((Event) e));
 		colService.setStyle("-fx-alignment: CENTER-RIGHT");
 
-		colJohn.setCellValueFactory(new PropertyValueFactory<Transaction, String>("john"));
+		colJohn.setCellValueFactory(new PropertyValueFactory<TransactionData, String>("john"));
 		colJohn.setCellFactory(TextFieldTableCell.forTableColumn());
 		colJohn.setOnEditCommit(e -> colJohn_OnEditCommit((Event) e));
 		colJohn.setStyle("-fx-alignment: CENTER-RIGHT");
 
-		colPastor.setCellValueFactory(new PropertyValueFactory<Transaction, String>("pastor"));
+		colPastor.setCellValueFactory(new PropertyValueFactory<TransactionData, String>("pastor"));
 		colPastor.setCellFactory(TextFieldTableCell.forTableColumn());
 		colPastor.setOnEditCommit(e -> colPastor_OnEditCommit((Event) e));
 		colPastor.setStyle("-fx-alignment: CENTER-RIGHT");
 
-		colMed.setCellValueFactory(new PropertyValueFactory<Transaction, String>("med"));
+		colMed.setCellValueFactory(new PropertyValueFactory<TransactionData, String>("med"));
 		colMed.setCellFactory(TextFieldTableCell.forTableColumn());
 		colMed.setOnEditCommit(e -> colMed_OnEditCommit((Event) e));
 		colMed.setStyle("-fx-alignment: CENTER-RIGHT");
 
-		colSchool.setCellValueFactory(new PropertyValueFactory<Transaction, String>("school"));
+		colSchool.setCellValueFactory(new PropertyValueFactory<TransactionData, String>("school"));
 		colSchool.setCellFactory(TextFieldTableCell.forTableColumn());
 		colSchool.setOnEditCommit(e -> colSchool_OnEditCommit((Event) e));
 		colSchool.setStyle("-fx-alignment: CENTER-RIGHT");
 
-		colMisc.setCellValueFactory(new PropertyValueFactory<Transaction, String>("misc"));
+		colMisc.setCellValueFactory(new PropertyValueFactory<TransactionData, String>("misc"));
 		colMisc.setCellFactory(TextFieldTableCell.forTableColumn());
 		colMisc.setOnEditCommit(e -> colMisc_OnEditCommit((Event) e));
 		colMisc.setStyle("-fx-alignment: CENTER-RIGHT");
 
-		colTransactionTotal.setCellValueFactory(new PropertyValueFactory<Transaction, String>("transactionTotal"));
+		colTransactionTotal.setCellValueFactory(new PropertyValueFactory<TransactionData, String>("transactionTotal"));
 		colTransactionTotal.setStyle("-fx-alignment: CENTER-RIGHT");
 
 	}
@@ -138,6 +147,7 @@ public class MainController
 			{
 				ArrayList<Double> list = task.getValue();
 
+				// fill total labels
 				totalGas.setText(makeString(list.get(0)));
 				totalService.setText(makeString(list.get(1)));
 				totalJohn.setText(makeString(list.get(2)));
@@ -170,7 +180,7 @@ public class MainController
 	public void listTransactions()
 	{
 		@SuppressWarnings("unchecked")
-		Task<ObservableList<Transaction>> task = new GetAllTransactions();
+		Task<ObservableList<TransactionData>> task = new GetAllTransactions();
 		table.itemsProperty().bind(task.valueProperty());
 
 		new Thread(task).start();
@@ -179,9 +189,9 @@ public class MainController
 	@SuppressWarnings("unchecked")
 	public void colDate_OnEditCommit(Event e)
 	{
-		TableColumn.CellEditEvent<Transaction, String> ce;
-		ce = (TableColumn.CellEditEvent<Transaction, String>) e;
-		Transaction working = ce.getRowValue();
+		TableColumn.CellEditEvent<TransactionData, String> ce;
+		ce = (TableColumn.CellEditEvent<TransactionData, String>) e;
+		TransactionData working = ce.getRowValue();
 
 		working.setDiscription(ce.getNewValue());
 
@@ -192,9 +202,9 @@ public class MainController
 	@SuppressWarnings("unchecked")
 	public void colDiscription_OnEditCommit(Event e)
 	{
-		TableColumn.CellEditEvent<Transaction, String> ce;
-		ce = (TableColumn.CellEditEvent<Transaction, String>) e;
-		Transaction working = ce.getRowValue();
+		TableColumn.CellEditEvent<TransactionData, String> ce;
+		ce = (TableColumn.CellEditEvent<TransactionData, String>) e;
+		TransactionData working = ce.getRowValue();
 
 		working.setDiscription(ce.getNewValue());
 
@@ -205,9 +215,9 @@ public class MainController
 	@SuppressWarnings("unchecked")
 	public void colGas_OnEditCommit(Event e)
 	{
-		TableColumn.CellEditEvent<Transaction, String> ce;
-		ce = (TableColumn.CellEditEvent<Transaction, String>) e;
-		Transaction working = ce.getRowValue();
+		TableColumn.CellEditEvent<TransactionData, String> ce;
+		ce = (TableColumn.CellEditEvent<TransactionData, String>) e;
+		TransactionData working = ce.getRowValue();
 		try
 		{
 			Double temp = Double.parseDouble(ce.getNewValue());
@@ -231,9 +241,9 @@ public class MainController
 	@SuppressWarnings("unchecked")
 	public void colService_OnEditCommit(Event e)
 	{
-		TableColumn.CellEditEvent<Transaction, String> ce;
-		ce = (TableColumn.CellEditEvent<Transaction, String>) e;
-		Transaction working = ce.getRowValue();
+		TableColumn.CellEditEvent<TransactionData, String> ce;
+		ce = (TableColumn.CellEditEvent<TransactionData, String>) e;
+		TransactionData working = ce.getRowValue();
 		try
 		{
 			Double temp = Double.parseDouble(ce.getNewValue());
@@ -255,9 +265,9 @@ public class MainController
 	@SuppressWarnings("unchecked")
 	public void colJohn_OnEditCommit(Event e)
 	{
-		TableColumn.CellEditEvent<Transaction, String> ce;
-		ce = (TableColumn.CellEditEvent<Transaction, String>) e;
-		Transaction working = ce.getRowValue();
+		TableColumn.CellEditEvent<TransactionData, String> ce;
+		ce = (TableColumn.CellEditEvent<TransactionData, String>) e;
+		TransactionData working = ce.getRowValue();
 		try
 		{
 			Double temp = Double.parseDouble(ce.getNewValue());
@@ -279,9 +289,9 @@ public class MainController
 	@SuppressWarnings("unchecked")
 	public void colPastor_OnEditCommit(Event e)
 	{
-		TableColumn.CellEditEvent<Transaction, String> ce;
-		ce = (TableColumn.CellEditEvent<Transaction, String>) e;
-		Transaction working = ce.getRowValue();
+		TableColumn.CellEditEvent<TransactionData, String> ce;
+		ce = (TableColumn.CellEditEvent<TransactionData, String>) e;
+		TransactionData working = ce.getRowValue();
 		try
 		{
 			Double temp = Double.parseDouble(ce.getNewValue());
@@ -303,9 +313,9 @@ public class MainController
 	@SuppressWarnings("unchecked")
 	public void colMed_OnEditCommit(Event e)
 	{
-		TableColumn.CellEditEvent<Transaction, String> ce;
-		ce = (TableColumn.CellEditEvent<Transaction, String>) e;
-		Transaction working = ce.getRowValue();
+		TableColumn.CellEditEvent<TransactionData, String> ce;
+		ce = (TableColumn.CellEditEvent<TransactionData, String>) e;
+		TransactionData working = ce.getRowValue();
 		try
 		{
 			Double temp = Double.parseDouble(ce.getNewValue());
@@ -327,9 +337,9 @@ public class MainController
 	@SuppressWarnings("unchecked")
 	public void colSchool_OnEditCommit(Event e)
 	{
-		TableColumn.CellEditEvent<Transaction, String> ce;
-		ce = (TableColumn.CellEditEvent<Transaction, String>) e;
-		Transaction working = ce.getRowValue();
+		TableColumn.CellEditEvent<TransactionData, String> ce;
+		ce = (TableColumn.CellEditEvent<TransactionData, String>) e;
+		TransactionData working = ce.getRowValue();
 		try
 		{
 			Double temp = Double.parseDouble(ce.getNewValue());
@@ -351,9 +361,9 @@ public class MainController
 	@SuppressWarnings("unchecked")
 	public void colMisc_OnEditCommit(Event e)
 	{
-		TableColumn.CellEditEvent<Transaction, String> ce;
-		ce = (TableColumn.CellEditEvent<Transaction, String>) e;
-		Transaction working = ce.getRowValue();
+		TableColumn.CellEditEvent<TransactionData, String> ce;
+		ce = (TableColumn.CellEditEvent<TransactionData, String>) e;
+		TransactionData working = ce.getRowValue();
 		try
 		{
 			Double temp = Double.parseDouble(ce.getNewValue());
@@ -389,7 +399,7 @@ class GetTotals extends Task
 /******************************************/
 class GetAllTransactions extends Task
 {
-	public ObservableList<Transaction> call()
+	public ObservableList<TransactionData> call()
 	{
 		return FXCollections.observableArrayList(AcctData.getInstance().queryTransactions(AcctData.ORDER_BY_ASC));
 

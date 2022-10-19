@@ -1,327 +1,180 @@
 package dataModel;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.SimpleStringProperty;
 
 public class Transaction
 {
-	private Integer _id = 0;
-	@SuppressWarnings({ "unchecked", "rawtypes" })
-	private ObjectProperty<LocalDate> transactionDate = new SimpleObjectProperty(LocalDate.now());
-	private SimpleStringProperty discription = new SimpleStringProperty("");
-	private SimpleDoubleProperty gas = new SimpleDoubleProperty(0.0);
-	private SimpleDoubleProperty service = new SimpleDoubleProperty(0.0);
-	private SimpleDoubleProperty john = new SimpleDoubleProperty(0.0);
-	private SimpleDoubleProperty pastor = new SimpleDoubleProperty(0.0);
-	private SimpleDoubleProperty med = new SimpleDoubleProperty(0.0);
-	private SimpleDoubleProperty school = new SimpleDoubleProperty(0.0);
-	private SimpleDoubleProperty misc = new SimpleDoubleProperty(0.0);
+	private int _id;
+	private LocalDate date;
+	private String discription;
+	private double gas;
+	private double service;
+	private double john;
+	private double pastor;
+	private double med;
+	private double school;
+	private double misc;
 
-	private SimpleDoubleProperty tax = new SimpleDoubleProperty(0.0);
-	private SimpleDoubleProperty saving = new SimpleDoubleProperty(0.0);
-
-	private SimpleDoubleProperty transactionTotal = new SimpleDoubleProperty(0.0);
+	private double tax;
+	private double saving;
+	private double transactionTotal;
 
 	public Transaction()
 	{
+		this._id = 0;
+		this.date = LocalDate.now();
+		this.discription = "";
+		this.gas = 0d;
+		this.service = 0d;
+		this.john = 0d;
+		this.pastor = 0d;
+		this.med = 0d;
+		this.school = 0d;
+		this.misc = 0d;
+
+		this.tax = 0d;
+		this.saving = 0d;
+		this.transactionTotal = 0d;
 	}
 
-	// ----------------------------------------
-	public Integer get_id()
+	public int get_id()
 	{
 		return _id;
 	}
 
-	// ----------------------------------------
-	public void set_id(Integer _id)
+	public void set_id(int _id)
 	{
 		this._id = _id;
 	}
 
-	// ----------------------------------------
-	public String getTransactionDate()
+	public LocalDate getDate()
 	{
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/YYYY");
-		return formatter.format(transactionDate.get());
+		return date;
 	}
 
-	public void setTransactionDate(LocalDate date)
+	public void setDate(LocalDate date)
 	{
-		this.transactionDate.set(date);
+		this.date = date;
 	}
 
-	// ----------------------------------------
 	public String getDiscription()
 	{
-		return discription.get();
+		return discription;
 	}
 
 	public void setDiscription(String discription)
 	{
-		this.discription.set(discription);
+		this.discription = discription;
 	}
 
-	// ----------------------------------------
-	public double getDoubleGas()
+	public double getGas()
 	{
-		return gas.get();
-	}
-
-	public String getGas()
-	{
-		if (gas.get() == 0.)
-		{
-			return "";
-		}
-		else
-		{
-			return String.format("%.2f", gas.get());
-		}
+		return gas;
 	}
 
 	public void setGas(double gas)
 	{
-		this.gas.set(gas);
+		this.gas = gas;
 		addTotal();
 	}
 
-	// ----------------------------------------
-	public double getDoubleService()
+	public double getService()
 	{
-		return service.get();
-	}
-
-	public String getService()
-	{
-		if (service.get() == 0.)
-		{
-			return "";
-		}
-		else
-		{
-			return String.format("%.2f", service.get());
-		}
+		return service;
 	}
 
 	public void setService(double service)
 	{
-		this.service.set(service);
+		this.service = service;
 		addTotal();
 	}
 
-	// ----------------------------------------
-	public double getDoubleJohn()
+	public double getJohn()
 	{
-		return john.get();
-	}
-
-	public String getJohn()
-	{
-		if (john.get() == 0.)
-		{
-			return "";
-		}
-		else
-		{
-			return String.format("%.2f", john.get());
-		}
+		return john;
 	}
 
 	public void setJohn(double john)
 	{
-		this.john.set(john);
+		this.john = john;
 		addTotal();
 	}
 
-	// ----------------------------------------
-	public double getDoublePastor()
+	public double getPastor()
 	{
-		return pastor.get();
-	}
-
-	public String getPastor()
-	{
-		if (pastor.get() == 0.)
-		{
-			return "";
-		}
-		else
-		{
-			return String.format("%.2f", pastor.get());
-		}
+		return pastor;
 	}
 
 	public void setPastor(double pastor)
 	{
-		this.pastor.set(pastor);
+		this.pastor = pastor;
 		addTotal();
 	}
 
-	// ----------------------------------------
-	public double getDoubleMed()
+	public double getMed()
 	{
-		return med.get();
-	}
-
-	public String getMed()
-	{
-		if (med.get() == 0.)
-		{
-			return "";
-		}
-		else
-		{
-			return String.format("%.2f", med.get());
-		}
+		return med;
 	}
 
 	public void setMed(double med)
 	{
-		this.med.set(med);
+		this.med = med;
 		addTotal();
 	}
 
-	// ----------------------------------------
-	public double getDoubleSchool()
+	public double getSchool()
 	{
-		return school.get();
-	}
-
-	public String getSchool()
-	{
-		if (school.get() == 0.)
-		{
-			return "";
-		}
-		else
-		{
-			return String.format("%.2f", school.get());
-		}
+		return school;
 	}
 
 	public void setSchool(double school)
 	{
-		this.school.set(school);
+		this.school = school;
 		addTotal();
 	}
 
-	// ----------------------------------------
-	public double getDoubleMisc()
+	public double getMisc()
 	{
-		return misc.get();
-	}
-
-	public String getMisc()
-	{
-		if (misc.get() == 0.)
-		{
-			return "";
-		}
-		else
-		{
-			return String.format("%.2f", misc.get());
-		}
+		return misc;
 	}
 
 	public void setMisc(double misc)
 	{
-		this.misc.set(misc);
+		this.misc = misc;
 		addTotal();
 	}
 
-	// ----------------------------------------
-	public double getDoubleTax()
+	public double getTax()
 	{
-		return tax.get();
-	}
-
-	public String getTax()
-	{
-		if (tax.get() == 0.)
-		{
-			return "";
-		}
-		else
-		{
-			return String.format("%.2f", tax.get());
-		}
+		return tax;
 	}
 
 	public void setTax(double tax)
 	{
-		this.tax.set(tax);
+		this.tax = tax;
 		addTotal();
 	}
 
-	// ----------------------------------------
-	public double getDoubleSavings()
+	public double getSaving()
 	{
-		return saving.get();
-	}
-
-	public String getSaving()
-	{
-		if (saving.get() == 0.)
-		{
-			return "";
-		}
-		else
-		{
-			return String.format("%.2f", saving.get());
-		}
+		return saving;
 	}
 
 	public void setSaving(double saving)
 	{
-		this.saving.set(saving);
+		this.saving = saving;
 		addTotal();
 	}
 
-	// ----------------------------------------
-	public double getDoubleTransactionTotal()
+	public double getTransactionTotal()
 	{
-		return transactionTotal.get();
-	}
-
-	public String getTransactionTotal()
-	{
-		if (transactionTotal.get() == 0.)
-		{
-			return "";
-		}
-		else
-		{
-			return String.format("%.2f", transactionTotal.get());
-		}
-	}
-
-	private void setTransactionTotal(double transactionTotal)
-	{
-		this.transactionTotal.set(transactionTotal);
+		return transactionTotal;
 	}
 
 	private void addTotal()
 	{
-		transactionTotal.set(gas.get()
-						+ service.get() + john.get() + pastor.get() + med.get()
-						+ school.get() + misc.get() + tax.get() + saving.get());
-	}
-
-	@Override
-	public String toString()
-	{
-		return "Transaction [_id="
-						+ _id + ", \ntransactionDate=" + transactionDate
-						+ ", \ndiscription=" + discription + ", \ngas=" + gas
-						+ ", \nservice=" + service + ", \njohn=" + john + ", \npastor="
-						+ pastor + ", \nmed=" + med + ", \nschool=" + school + ", \nmisc="
-						+ misc + ", \ntax=" + tax + ", \nsaving=" + saving
-						+ ", \ntransactionTotal=" + transactionTotal + "]";
+		transactionTotal = gas
+						+ service + john + pastor + med + school + misc + tax + saving;
 	}
 
 }

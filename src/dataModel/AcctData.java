@@ -152,7 +152,7 @@ public class AcctData
 		return totalAcct;
 	}
 
-	public List<Transaction> queryTransactions(int sortOrder)
+	public List<TransactionData> queryTransactions(int sortOrder)
 	{
 		StringBuilder sb = new StringBuilder("SELECT ");
 		sb.append("_id, date, discription, gas, service ,john, pastor, med, school, misc FROM ");
@@ -175,10 +175,10 @@ public class AcctData
 
 		try (Statement statement = conn.createStatement(); ResultSet results = statement.executeQuery(sb.toString()))
 		{
-			List<Transaction> list = new ArrayList<Transaction>();
+			List<TransactionData> list = new ArrayList<TransactionData>();
 			while (results.next())
 			{
-				Transaction transaction = new Transaction();
+				TransactionData transaction = new TransactionData();
 				transaction.set_id(results.getInt(INDEX_TRANSACTIONS_ID));
 				transaction.setTransactionDate(LocalDate.parse(results.getString(INDEX_TRANSACTIONS_DATE)));
 				transaction.setDiscription(results.getString(INDEX_TRANSACTIONS_DISCRIPTION));
@@ -232,7 +232,7 @@ public class AcctData
 		}
 	}
 
-	public void updateTransaction(String changedColumn, Transaction transaction)
+	public void updateTransaction(String changedColumn, TransactionData transaction)
 	{
 		String update_transaction;
 
@@ -329,7 +329,7 @@ public class AcctData
 		}
 	}
 
-	private void addToTotal(Transaction transaction)
+	private void addToTotal(TransactionData transaction)
 	{
 		totalGas += transaction.getDoubleGas();
 		totalService += transaction.getDoubleService();
