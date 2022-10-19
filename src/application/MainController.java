@@ -6,18 +6,22 @@ import java.util.ArrayList;
 
 import dataModel.AcctData;
 import dataModel.TransactionData;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.concurrent.WorkerStateEvent;
+import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TablePosition;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.input.KeyCode;
 import javafx.util.converter.LocalDateStringConverter;
 import tableEditFiles.EditCell;
 import tableEditFiles.MyDoubleStringConverter;
@@ -141,6 +145,144 @@ public class MainController
 		colTransactionTotal.setCellValueFactory(new PropertyValueFactory<TransactionData, Double>("transactionTotal"));
 		colTransactionTotal.setStyle("-fx-alignment: CENTER-RIGHT");
 
+	}
+
+	private void setTableEditable()
+	{
+		table.setEditable(true);
+		// allows the individual cells to be selected
+		table.getSelectionModel().cellSelectionEnabledProperty().set(true);
+		// when character or numbers pressed it will start edit in editable
+		// fields
+		table.setOnKeyPressed(event ->
+		{
+			if (event.getCode().isLetterKey() || event.getCode().isDigitKey())
+			{
+				editFocusedCell();
+			}
+			else if (event.getCode() == KeyCode.RIGHT || event.getCode() == KeyCode.TAB)
+			{
+				table.getSelectionModel().selectNext();
+				event.consume();
+			}
+			else if (event.getCode() == KeyCode.LEFT)
+			{
+				// work around due to
+				// TableView.getSelectionModel().selectPrevious() due to a bug
+				// stopping it from working on
+				// the first column in the last row of the table
+				selectPrevious();
+				event.consume();
+			}
+		});
+	}
+
+	@SuppressWarnings("unchecked")
+	private void editFocusedCell()
+	{
+		final TablePosition<TransactionData, ?> focusedCell = table.focusModelProperty().get().focusedCellProperty().get();
+		table.edit(focusedCell.getRow(), focusedCell.getTableColumn());
+	}
+
+	@SuppressWarnings("unchecked")
+	private void selectPrevious()
+	{
+		if (table.getSelectionModel().isCellSelectionEnabled())
+		{
+			// in cell selection mode, we have to wrap around, going from
+			// right-to-left, and then wrapping to the end of the previous line
+			TablePosition<TransactionData, ?> pos = table.getFocusModel().getFocusedCell();
+			if (pos.getColumn() - 1 >= 0)
+			{
+				// go to previous row
+				table.getSelectionModel().select(pos.getRow(), getTableColumn(pos.getTableColumn(), -1));
+			}
+			else if (pos.getRow() < table.getItems().size())
+			{
+				// wrap to end of previous row
+				table.getSelectionModel().select(pos.getRow()
+								- 1, table.getVisibleLeafColumn(table.getVisibleLeafColumns().size()
+												- 1));
+			}
+		}
+		else
+		{
+			int focusIndex = table.getFocusModel().getFocusedIndex();
+			if (focusIndex == -1)
+			{
+				table.getSelectionModel().select(table.getItems().size() - 1);
+			}
+			else if (focusIndex > 0)
+			{
+				table.getSelectionModel().select(focusIndex - 1);
+			}
+		}
+	}
+
+	private TableColumn<PersonTableData, ?> getTableColumn(final TableColumn<PersonTableData, ?> column, int offset)
+	{
+		int columnIndex = table.getVisibleLeafIndex(column);
+		int newColumnIndex = columnIndex + offset;
+		return table.getVisibleLeafColumn(newColumnIndex);
+	}
+
+	private void createColumnManually()
+	{
+		TableColumn<PersonTableData, Date> dateOfBirthColumn = new TableColumn<>("Date of Birth");
+		dateOfBirthColumn.setCellValueFactory(person ->
+		{
+			SimpleObjectProperty<Date> property = new SimpleObjectProperty<>();
+			property.setValue(person.getValue().getDateOfBirth());
+			return property;
+		});
+		table.getColumns().add(2, dateOfBirthColumn);
+	}
+
+	@FXML
+	private void submit(final ActionEvent event)
+	{
+		if (allFieldsValid())
+		{
+			final String firstName = firstNameTextField.getText();
+			final String surname = surnameTextField.getText();
+			Date dateOfBirth = null;
+			try
+			{
+				dateOfBirth = DATE_FORMATTER.parse(dateOfBirthTextField.getText());
+			}
+			catch (final ParseException e)
+			{
+			}
+			final String occupation = occupationTextField.getText();
+			final double salary = Double.parseDouble(salaryTextField.getText());
+			data.add(new PersonTableData(firstName, surname, dateOfBirth, occupation, salary));
+		}
+	}
+
+	private boolean allFieldsValid()
+	{
+		return !firstNameTextField.getText().isEmpty()
+						&& !surnameTextField.getText().isEmpty()
+						&& dateOfBirthFieldValid()
+						&& !occupationTextField.getText().isEmpty()
+						&& !salaryTextField.getText().isEmpty();
+	}
+
+	private boolean dateOfBirthFieldValid()
+	{
+		if (!dateOfBirthTextField.getText().isEmpty())
+		{
+			try
+			{
+				DATE_FORMATTER.parse(dateOfBirthTextField.getText());
+				return true;
+			}
+			catch (ParseException e)
+			{
+				return false;
+			}
+		}
+		return false;
 	}
 
 	/******************************************/

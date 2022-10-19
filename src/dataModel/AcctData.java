@@ -10,8 +10,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import dataModel.TransactionData;
-
 public class AcctData
 {
 
@@ -180,22 +178,23 @@ public class AcctData
 			List<TransactionData> list = new ArrayList<TransactionData>();
 			while (results.next())
 			{
-				Transaction currentTrans = new Transaction(results.getInt(INDEX_TRANSACTIONS_ID,
-								LocalDate.parse(results.getString(INDEX_TRANSACTIONS_DATE)),
-								results.getString(INDEX_TRANSACTIONS_DISCRIPTION),
-								results.getDouble(INDEX_TRANSACTIONS_GAS),
-								results.getDouble(INDEX_TRANSACTIONS_SERVICE),
-								results.getDouble(INDEX_TRANSACTIONS_JOHN),
-								results.getDouble(INDEX_TRANSACTIONS_PASTOR),
-								results.getDouble(INDEX_TRANSACTIONS_MED),
-								results.getDouble(INDEX_TRANSACTIONS_SCHOOL),
-								results.getDouble(INDEX_TRANSACTIONS_MISC),
-								results.getDouble(INDEX_TRANSACTIONS_TAX),
-								results.getDouble(INDEX_TRANSACTIONS_SAVING),
-								results.getDouble(INDEX_TRANSACTIONS_OTHER));
-				
+				Transaction currentTrans = new Transaction();
+				currentTrans.set_id(results.getInt(INDEX_TRANSACTIONS_ID));
+				currentTrans.setDate(LocalDate.parse(results.getString(INDEX_TRANSACTIONS_DATE)));
+				currentTrans.setDiscription(results.getString(INDEX_TRANSACTIONS_DISCRIPTION));
+				currentTrans.setGas(results.getDouble(INDEX_TRANSACTIONS_SERVICE));
+				currentTrans.setService(results.getDouble(INDEX_TRANSACTIONS_SERVICE));
+				currentTrans.setJohn(results.getDouble(INDEX_TRANSACTIONS_SERVICE));
+				currentTrans.setPastor(results.getDouble(INDEX_TRANSACTIONS_SERVICE));
+				currentTrans.setMed(results.getDouble(INDEX_TRANSACTIONS_SERVICE));
+				currentTrans.setSchool(results.getDouble(INDEX_TRANSACTIONS_SERVICE));
+				currentTrans.setMisc(results.getDouble(INDEX_TRANSACTIONS_SERVICE));
+				currentTrans.setTax(results.getDouble(INDEX_TRANSACTIONS_SERVICE));
+				currentTrans.setSaving(results.getDouble(INDEX_TRANSACTIONS_SERVICE));
+				currentTrans.setSavingOther(results.getDouble(INDEX_TRANSACTIONS_SERVICE));
+
 				TransactionData transactionData = new TransactionData(currentTrans);
-				
+
 				list.add(transactionData);
 			}
 			return list;
@@ -259,7 +258,7 @@ public class AcctData
 			case COL_TRANSACTIONS_GAS:
 				update_transaction = part1 + COL_TRANSACTIONS_GAS + part2;
 				updateInTransaction = conn.prepareStatement(update_transaction);
-				updateInTransaction.setDouble(1, transaction.getDoubleGas());
+				updateInTransaction.setDouble(1, transaction.getGas());
 				updateInTransaction.setInt(2, transaction.get_id());
 
 				System.out.println(updateInTransaction.toString());
@@ -269,7 +268,7 @@ public class AcctData
 			case COL_TRANSACTIONS_SERVICE:
 				update_transaction = part1 + COL_TRANSACTIONS_SERVICE + part2;
 				updateInTransaction = conn.prepareStatement(update_transaction);
-				updateInTransaction.setDouble(1, transaction.getDoubleService());
+				updateInTransaction.setDouble(1, transaction.getService());
 				updateInTransaction.setInt(2, transaction.get_id());
 
 				System.out.println(updateInTransaction.toString());
@@ -279,7 +278,7 @@ public class AcctData
 			case COL_TRANSACTIONS_JOHN:
 				update_transaction = part1 + COL_TRANSACTIONS_JOHN + part2;
 				updateInTransaction = conn.prepareStatement(update_transaction);
-				updateInTransaction.setDouble(1, transaction.getDoubleJohn());
+				updateInTransaction.setDouble(1, transaction.getJohn());
 				updateInTransaction.setInt(2, transaction.get_id());
 
 				System.out.println(updateInTransaction.toString());
@@ -289,7 +288,7 @@ public class AcctData
 			case COL_TRANSACTIONS_PASTOR:
 				update_transaction = part1 + COL_TRANSACTIONS_PASTOR + part2;
 				updateInTransaction = conn.prepareStatement(update_transaction);
-				updateInTransaction.setDouble(1, transaction.getDoublePastor());
+				updateInTransaction.setDouble(1, transaction.getPastor());
 				updateInTransaction.setInt(2, transaction.get_id());
 
 				System.out.println(updateInTransaction.toString());
@@ -299,7 +298,7 @@ public class AcctData
 			case COL_TRANSACTIONS_MED:
 				update_transaction = part1 + COL_TRANSACTIONS_MED + part2;
 				updateInTransaction = conn.prepareStatement(update_transaction);
-				updateInTransaction.setDouble(1, transaction.getDoubleMed());
+				updateInTransaction.setDouble(1, transaction.getMed());
 				updateInTransaction.setInt(2, transaction.get_id());
 
 				System.out.println(updateInTransaction.toString());
@@ -309,7 +308,7 @@ public class AcctData
 			case COL_TRANSACTIONS_SCHOOL:
 				update_transaction = part1 + COL_TRANSACTIONS_SCHOOL + part2;
 				updateInTransaction = conn.prepareStatement(update_transaction);
-				updateInTransaction.setDouble(1, transaction.getDoubleSchool());
+				updateInTransaction.setDouble(1, transaction.getSchool());
 				updateInTransaction.setInt(2, transaction.get_id());
 
 				System.out.println(updateInTransaction.toString());
@@ -319,7 +318,7 @@ public class AcctData
 			case COL_TRANSACTIONS_MISC:
 				update_transaction = part1 + COL_TRANSACTIONS_MISC + part2;
 				updateInTransaction = conn.prepareStatement(update_transaction);
-				updateInTransaction.setDouble(1, transaction.getDoubleMisc());
+				updateInTransaction.setDouble(1, transaction.getMisc());
 				updateInTransaction.setInt(2, transaction.get_id());
 
 				System.out.println(updateInTransaction.toString());
@@ -331,23 +330,6 @@ public class AcctData
 		{
 			System.out.println("update transaction exception ");
 		}
-	}
-
-	private void addToTotal(TransactionData transaction)
-	{
-		totalGas += transaction.getDoubleGas();
-		totalService += transaction.getDoubleService();
-		totalJohn += transaction.getDoubleJohn();
-		totalPastor += transaction.getDoublePastor();
-		totalMed += transaction.getDoubleMed();
-		totalSchool += transaction.getDoubleSchool();
-		totalMisc += transaction.getDoubleMisc();
-
-		totalAcct = 0.00;
-		totalAcct = totalGas
-						+ totalService + totalJohn + totalPastor + totalMed + totalSchool
-						+ totalMisc;
-
 	}
 
 }

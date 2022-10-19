@@ -157,7 +157,7 @@ public class TransactionData
 	}
 
 	// ----------------------------------------
-	public String getMed()
+	public double getMed()
 	{
 		return med.get();
 		// if (med.get() == 0.)

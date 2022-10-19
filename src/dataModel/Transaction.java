@@ -4,7 +4,7 @@ import java.time.LocalDate;
 
 public class Transaction
 {
-	private int _id;
+	private Integer _id;
 	private LocalDate date;
 	private String discription;
 	private double gas;
@@ -203,6 +203,17 @@ public class Transaction
 	public void setSaving(double saving)
 	{
 		this.saving = saving;
+		addTotal();
+	}
+
+	public double getSavingOther()
+	{
+		return saving_other;
+	}
+
+	public void setSavingOther(double saving)
+	{
+		this.saving_other = saving;
 		addTotal();
 	}
 
