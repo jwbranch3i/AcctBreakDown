@@ -6,12 +6,10 @@ import java.util.ArrayList;
 
 import dataModel.AcctData;
 import dataModel.TransactionData;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.concurrent.WorkerStateEvent;
-import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -145,6 +143,8 @@ public class MainController
 		colTransactionTotal.setCellValueFactory(new PropertyValueFactory<TransactionData, Double>("transactionTotal"));
 		colTransactionTotal.setStyle("-fx-alignment: CENTER-RIGHT");
 
+		setTableEditable();
+
 	}
 
 	private void setTableEditable()
@@ -219,76 +219,67 @@ public class MainController
 		}
 	}
 
-	private TableColumn<PersonTableData, ?> getTableColumn(final TableColumn<PersonTableData, ?> column, int offset)
+	private TableColumn<TransactionData, ?> getTableColumn(final TableColumn<TransactionData, ?> column, int offset)
 	{
 		int columnIndex = table.getVisibleLeafIndex(column);
 		int newColumnIndex = columnIndex + offset;
 		return table.getVisibleLeafColumn(newColumnIndex);
 	}
 
-	private void createColumnManually()
-	{
-		TableColumn<PersonTableData, Date> dateOfBirthColumn = new TableColumn<>("Date of Birth");
-		dateOfBirthColumn.setCellValueFactory(person ->
-		{
-			SimpleObjectProperty<Date> property = new SimpleObjectProperty<>();
-			property.setValue(person.getValue().getDateOfBirth());
-			return property;
-		});
-		table.getColumns().add(2, dateOfBirthColumn);
-	}
+	// for input data from text fields
+	// @FXML
+	// private void submit(final ActionEvent event)
+	// {
+	// if (allFieldsValid())
+	// {
+	// final String firstName = firstNameTextField.getText();
+	// final String surname = surnameTextField.getText();
+	// Date dateOfBirth = null;
+	// try
+	// {
+	// dateOfBirth = DATE_FORMATTER.parse(dateOfBirthTextField.getText());
+	// }
+	// catch (final ParseException e)
+	// {
+	// }
+	// final String occupation = occupationTextField.getText();
+	// final double salary = Double.parseDouble(salaryTextField.getText());
+	// data.add(new PersonTableData(firstName, surname, dateOfBirth, occupation,
+	// salary));
+	// }
+	// }
 
-	@FXML
-	private void submit(final ActionEvent event)
-	{
-		if (allFieldsValid())
-		{
-			final String firstName = firstNameTextField.getText();
-			final String surname = surnameTextField.getText();
-			Date dateOfBirth = null;
-			try
-			{
-				dateOfBirth = DATE_FORMATTER.parse(dateOfBirthTextField.getText());
-			}
-			catch (final ParseException e)
-			{
-			}
-			final String occupation = occupationTextField.getText();
-			final double salary = Double.parseDouble(salaryTextField.getText());
-			data.add(new PersonTableData(firstName, surname, dateOfBirth, occupation, salary));
-		}
-	}
-
-	private boolean allFieldsValid()
-	{
-		return !firstNameTextField.getText().isEmpty()
-						&& !surnameTextField.getText().isEmpty()
-						&& dateOfBirthFieldValid()
-						&& !occupationTextField.getText().isEmpty()
-						&& !salaryTextField.getText().isEmpty();
-	}
-
-	private boolean dateOfBirthFieldValid()
-	{
-		if (!dateOfBirthTextField.getText().isEmpty())
-		{
-			try
-			{
-				DATE_FORMATTER.parse(dateOfBirthTextField.getText());
-				return true;
-			}
-			catch (ParseException e)
-			{
-				return false;
-			}
-		}
-		return false;
-	}
+	// private boolean allFieldsValid()
+	// {
+	// return !firstNameTextField.getText().isEmpty()
+	// && !surnameTextField.getText().isEmpty()
+	// && dateOfBirthFieldValid()
+	// && !occupationTextField.getText().isEmpty()
+	// && !salaryTextField.getText().isEmpty();
+	// }
+	//
+	// private boolean dateOfBirthFieldValid()
+	// {
+	// if (!dateOfBirthTextField.getText().isEmpty())
+	// {
+	// try
+	// {
+	// DATE_FORMATTER.parse(dateOfBirthTextField.getText());
+	// return true;
+	// }
+	// catch (ParseException e)
+	// {
+	// return false;
+	// }
+	// }
+	// return false;
+	// }
 
 	/******************************************/
 	public void listTotals()
 	{
 
+		@SuppressWarnings("unchecked")
 		Task<ArrayList<Double>> task = new GetTotals();
 		task.addEventHandler(WorkerStateEvent.WORKER_STATE_SUCCEEDED, new EventHandler<WorkerStateEvent>()
 		{
@@ -372,7 +363,7 @@ public class MainController
 		{
 			Double temp = Double.parseDouble(ce.getNewValue());
 			totalGas.setText(makeString(Double.parseDouble(totalGas.getText())
-							- working.getDoubleGas() + temp));
+							- working.getGas() + temp));
 
 			working.setGas(temp);
 		}
@@ -398,7 +389,7 @@ public class MainController
 		{
 			Double temp = Double.parseDouble(ce.getNewValue());
 			totalService.setText(makeString(Double.parseDouble(totalService.getText())
-							- working.getDoubleService() + temp));
+							- working.getService() + temp));
 
 			working.setService(temp);
 		}
@@ -422,7 +413,7 @@ public class MainController
 		{
 			Double temp = Double.parseDouble(ce.getNewValue());
 			totalJohn.setText(makeString(Double.parseDouble(totalJohn.getText())
-							- working.getDoubleJohn() + temp));
+							- working.getJohn() + temp));
 
 			working.setJohn(temp);
 		}
@@ -446,7 +437,7 @@ public class MainController
 		{
 			Double temp = Double.parseDouble(ce.getNewValue());
 			totalPastor.setText(makeString(Double.parseDouble(totalPastor.getText())
-							- working.getDoublePastor() + temp));
+							- working.getPastor() + temp));
 
 			working.setPastor(temp);
 		}
@@ -470,7 +461,7 @@ public class MainController
 		{
 			Double temp = Double.parseDouble(ce.getNewValue());
 			totalMed.setText(makeString(Double.parseDouble(totalMed.getText())
-							- working.getDoubleMed() + temp));
+							- working.getMed() + temp));
 
 			working.setMed(temp);
 		}
@@ -494,7 +485,7 @@ public class MainController
 		{
 			Double temp = Double.parseDouble(ce.getNewValue());
 			totalSchool.setText(makeString(Double.parseDouble(totalSchool.getText())
-							- working.getDoubleSchool() + temp));
+							- working.getSchool() + temp));
 
 			working.setSchool(temp);
 		}
@@ -518,7 +509,7 @@ public class MainController
 		{
 			Double temp = Double.parseDouble(ce.getNewValue());
 			totalMisc.setText(makeString(Double.parseDouble(totalMisc.getText())
-							- working.getDoubleMisc() + temp));
+							- working.getMisc() + temp));
 
 			working.setMisc(temp);
 		}
