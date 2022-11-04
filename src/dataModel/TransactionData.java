@@ -1,7 +1,6 @@
 package dataModel;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -9,25 +8,30 @@ import javafx.beans.property.SimpleStringProperty;
 
 public class TransactionData
 {
-	private int _id;
-	private SimpleObjectProperty<LocalDate> date;
-	private SimpleStringProperty discription;
-	private SimpleDoubleProperty gas;
-	private SimpleDoubleProperty service;
-	private SimpleDoubleProperty john;
-	private SimpleDoubleProperty pastor;
-	private SimpleDoubleProperty med;
-	private SimpleDoubleProperty school;
-	private SimpleDoubleProperty misc;
+	private int _id = 0;
+	private SimpleObjectProperty<Date> transDate = new SimpleObjectProperty<Date>(new Date());
+	private SimpleStringProperty discription = new SimpleStringProperty("");
+	private SimpleDoubleProperty gas = new SimpleDoubleProperty(0);
+	private SimpleDoubleProperty service = new SimpleDoubleProperty(0);
+	private SimpleDoubleProperty john = new SimpleDoubleProperty(0);
+	private SimpleDoubleProperty pastor = new SimpleDoubleProperty(0);
+	private SimpleDoubleProperty med = new SimpleDoubleProperty(0);
+	private SimpleDoubleProperty school = new SimpleDoubleProperty(0);
+	private SimpleDoubleProperty misc = new SimpleDoubleProperty(0);
 
-	private SimpleDoubleProperty tax;
-	private SimpleDoubleProperty saving;
-	private SimpleDoubleProperty transactionTotal;
+	private SimpleDoubleProperty tax = new SimpleDoubleProperty(0);
+	private SimpleDoubleProperty saving = new SimpleDoubleProperty(0);
+	private SimpleDoubleProperty transactionTotal = new SimpleDoubleProperty(0);
 
 	public TransactionData(Transaction transaction)
 	{
 		this._id = transaction.get_id();
-		this.date.set(transaction.getDate());
+
+		Date temp = transaction.getTransDate();
+		System.out.println(temp);
+		transDate.set(temp);
+
+		this.transDate.set(transaction.getTransDate());
 		this.discription.set(transaction.getDiscription());
 		this.gas.set(transaction.getGas());
 		this.service.set(transaction.getService());
@@ -55,17 +59,18 @@ public class TransactionData
 	}
 
 	// ----------------------------------------
-	public LocalDate getTransactionDate()
+	public Date getTransDate()
 	{
-		return date.get();
-		// DateTimeFormatter formatter =
-		// DateTimeFormatter.ofPattern("MM/dd/YYYY");
-		// return formatter.format(date.get());
+		return transDate.get();
+		// SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyy");
+		// String sDate = formatter.format(transDate.get());
+		// return sDate;
 	}
 
-	public void setTransactionDate(LocalDate date)
+	public void setTransDate(
+					Date transDate)
 	{
-		this.date.set(date);
+		this.transDate.set(transDate);
 	}
 
 	// ----------------------------------------
@@ -74,25 +79,34 @@ public class TransactionData
 		return discription.get();
 	}
 
-	public void setDiscription(String discription)
+	public void setDiscription(
+					String discription)
 	{
 		this.discription.set(discription);
 	}
 
 	// ----------------------------------------
+	public double getDoubleGas()
+	{
+		return gas.get();
+	}
+
 	public double getGas()
 	{
 		return gas.get();
-
-		// if (gas.get() == 0.)
-		// {
-		// return "";
-		// }
-		// else
-		// {
-		// return String.format("%.2f", gas.get());
-		// }
 	}
+
+	// public String getGas()
+	// {
+	// if (gas.get() == 0.)
+	// {
+	// return "";
+	// }
+	// else
+	// {
+	// return String.format("%.2f", gas.get());
+	// }
+	// }
 
 	public void setGas(double gas)
 	{
@@ -100,18 +114,26 @@ public class TransactionData
 	}
 
 	// ----------------------------------------
+	public double getDoubleService()
+	{
+		return service.get();
+	}
+
 	public double getService()
 	{
 		return service.get();
-		// if (service.get() == 0.)
-		// {
-		// return "";
-		// }
-		// else
-		// {
-		// return String.format("%.2f", service.get());
-		// }
 	}
+	// public String getService()
+	// {
+	// if (service.get() == 0.)
+	// {
+	// return "";
+	// }
+	// else
+	// {
+	// return String.format("%.2f", service.get());
+	// }
+	// }
 
 	public void setService(double service)
 	{
@@ -119,18 +141,26 @@ public class TransactionData
 	}
 
 	// ----------------------------------------
+	public double getDoubleJohn()
+	{
+		return john.get();
+	}
+
 	public double getJohn()
 	{
 		return john.get();
-		// if (john.get() == 0.)
-		// {
-		// return "";
-		// }
-		// else
-		// {
-		// return String.format("%.2f", john.get());
-		// }
 	}
+	// public String getJohn()
+	// {
+	// if (john.get() == 0.)
+	// {
+	// return "";
+	// }
+	// else
+	// {
+	// return String.format("%.2f", john.get());
+	// }
+	// }
 
 	public void setJohn(double john)
 	{
@@ -138,18 +168,26 @@ public class TransactionData
 	}
 
 	// ----------------------------------------
+	public double getDoublePastor()
+	{
+		return pastor.get();
+	}
+
 	public double getPastor()
 	{
 		return pastor.get();
-		// if (pastor.get() == 0.)
-		// {
-		// return "";
-		// }
-		// else
-		// {
-		// return String.format("%.2f", pastor.get());
-		// }
 	}
+	// public String getPastor()
+	// {
+	// if (pastor.get() == 0.)
+	// {
+	// return "";
+	// }
+	// else
+	// {
+	// return String.format("%.2f", pastor.get());
+	// }
+	// }
 
 	public void setPastor(double pastor)
 	{
@@ -157,18 +195,26 @@ public class TransactionData
 	}
 
 	// ----------------------------------------
+	public double getDoubleMed()
+	{
+		return med.get();
+	}
+
 	public double getMed()
 	{
 		return med.get();
-		// if (med.get() == 0.)
-		// {
-		// return "";
-		// }
-		// else
-		// {
-		// return String.format("%.2f", med.get());
-		// }
 	}
+	// public String getMed()
+	// {
+	// if (med.get() == 0.)
+	// {
+	// return "";
+	// }
+	// else
+	// {
+	// return String.format("%.2f", med.get());
+	// }
+	// }
 
 	public void setMed(double med)
 	{
@@ -176,18 +222,26 @@ public class TransactionData
 	}
 
 	// ----------------------------------------
+	public double getDoubleSchool()
+	{
+		return school.get();
+	}
+
 	public double getSchool()
 	{
 		return school.get();
-		// if (school.get() == 0.)
-		// {
-		// return "";
-		// }
-		// else
-		// {
-		// return String.format("%.2f", school.get());
-		// }
 	}
+	// public String getSchool()
+	// {
+	// if (school.get() == 0.)
+	// {
+	// return "";
+	// }
+	// else
+	// {
+	// return String.format("%.2f", school.get());
+	// }
+	// }
 
 	public void setSchool(double school)
 	{
@@ -195,18 +249,26 @@ public class TransactionData
 	}
 
 	// ----------------------------------------
+	public double getDoubleMisc()
+	{
+		return misc.get();
+	}
+
 	public double getMisc()
 	{
 		return misc.get();
-		// if (misc.get() == 0.)
-		// {
-		// return "";
-		// }
-		// else
-		// {
-		// return String.format("%.2f", misc.get());
-		// }
 	}
+	// public String getMisc()
+	// {
+	// if (misc.get() == 0.)
+	// {
+	// return "";
+	// }
+	// else
+	// {
+	// return String.format("%.2f", misc.get());
+	// }
+	// }
 
 	public void setMisc(double misc)
 	{
@@ -214,18 +276,26 @@ public class TransactionData
 	}
 
 	// ----------------------------------------
+	public double getDoubleTax()
+	{
+		return tax.get();
+	}
+
 	public double getTax()
 	{
 		return tax.get();
-		// if (tax.get() == 0.)
-		// {
-		// return "";
-		// }
-		// else
-		// {
-		// return String.format("%.2f", tax.get());
-		// }
 	}
+	// public String getTax()
+	// {
+	// if (tax.get() == 0.)
+	// {
+	// return "";
+	// }
+	// else
+	// {
+	// return String.format("%.2f", tax.get());
+	// }
+	// }
 
 	public void setTax(double tax)
 	{
@@ -233,18 +303,26 @@ public class TransactionData
 	}
 
 	// ----------------------------------------
+	public double getDoubleSaving()
+	{
+		return saving.get();
+	}
+
 	public double getSaving()
 	{
 		return saving.get();
-		// if (saving.get() == 0.)
-		// {
-		// return "";
-		// }
-		// else
-		// {
-		// return String.format("%.2f", saving.get());
-		// }
 	}
+	// public String getSaving()
+	// {
+	// if (saving.get() == 0.)
+	// {
+	// return "";
+	// }
+	// else
+	// {
+	// return String.format("%.2f", saving.get());
+	// }
+	// }
 
 	public void setSaving(double saving)
 	{
@@ -252,15 +330,36 @@ public class TransactionData
 	}
 
 	// ----------------------------------------
+	public double getDoubleTransactionTotal()
+	{
+		return transactionTotal.get();
+	}
+
 	public double getTransactionTotal()
 	{
 		return transactionTotal.get();
-//		if (transactionTotal.get() == 0.)
-//		{
-//			return "";
-//		}
-//		else
-//		{
-//			return String.format("%.2f", transactionTotal.get());
-//		}
 	}
+	// public String getTransactionTotal()
+	// {
+	// if (transactionTotal.get() == 0.)
+	// {
+	// return "";
+	// }
+	// else
+	// {
+	// return String.format("%.2f", transactionTotal.get());
+	// }
+	// }
+
+	@Override
+	public String toString()
+	{
+		return "TransactionData [_id=" +
+						_id +
+						", transDate=" +
+						transDate +
+						", discription=" +
+						discription + "]";
+	}
+
+}

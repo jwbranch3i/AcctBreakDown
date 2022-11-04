@@ -1,11 +1,11 @@
 package dataModel;
 
-import java.time.LocalDate;
+import java.util.Date;
 
 public class Transaction
 {
 	private Integer _id;
-	private LocalDate date;
+	private Date transDate;
 	private String discription;
 	private double gas;
 	private double service;
@@ -20,12 +20,10 @@ public class Transaction
 	private double saving_other;
 	private double transactionTotal;
 
-	public Transaction(int id, LocalDate date, String discription, double gas, double service, double john,
-					double pastor, double med, double school, double misc, double tax=0d, double saving,
-					double saving_other)
+	public Transaction(int id, Date transDate, String discription, double gas, double service, double john, double pastor, double med, double school, double misc, double tax, double saving, double saving_other)
 	{
 		this._id = id;
-		this.date = date;;
+		this.transDate = transDate;
 		this.discription = discription;
 		this.gas = gas;
 		this.service = service;
@@ -40,11 +38,10 @@ public class Transaction
 		this.saving_other = saving_other;
 	}
 
-	public Transaction(int id, LocalDate date, String discription, double gas, double service, double john, double pastor, double med, double school, double misc)
+	public Transaction(int id, Date transDate, String discription, double gas, double service, double john, double pastor, double med, double school, double misc)
 	{
 		this._id = id;
-		this.date = date;
-		;
+		this.transDate = transDate;
 		this.discription = discription;
 		this.gas = gas;
 		this.service = service;
@@ -62,19 +59,20 @@ public class Transaction
 	public Transaction()
 	{
 		this._id = 0;
-		this.date = LocalDate.now();
+		this.transDate = new Date();
 		this.discription = "";
-		this.gas = 0d;
-		this.service = 0d;
-		this.john = 0d;
-		this.pastor = 0d;
-		this.med = 0d;
-		this.school = 0d;
-		this.misc = 0d;
+		this.gas = -1d;
+		this.service = -1d;
+		this.john = -1d;
+		this.pastor = -1d;
+		this.med = -1d;
+		this.school = -1d;
+		this.misc = -1d;
 
-		this.tax = 0d;
-		this.saving = 0d;
-		this.transactionTotal = 0d;
+		this.tax = -1d;
+		this.saving = -1d;
+
+		this.transactionTotal = -1d;
 	}
 
 	public int get_id()
@@ -87,14 +85,14 @@ public class Transaction
 		this._id = _id;
 	}
 
-	public LocalDate getDate()
+	public Date getTransDate()
 	{
-		return date;
+		return transDate;
 	}
 
-	public void setDate(LocalDate date)
+	public void setTransDate(Date transDate)
 	{
-		this.date = date;
+		this.transDate = transDate;
 	}
 
 	public String getDiscription()
@@ -102,7 +100,8 @@ public class Transaction
 		return discription;
 	}
 
-	public void setDiscription(String discription)
+	public void setDiscription(
+					String discription)
 	{
 		this.discription = discription;
 	}
@@ -112,7 +111,7 @@ public class Transaction
 		return gas;
 	}
 
-	public void setGas(double gas)
+	public void setGas(Double gas)
 	{
 		this.gas = gas;
 		addTotal();
@@ -224,8 +223,35 @@ public class Transaction
 
 	private void addTotal()
 	{
-		transactionTotal = gas
-						+ service + john + pastor + med + school + misc + tax + saving;
+		transactionTotal = gas + service +
+						john + pastor + med +
+						school + misc + tax +
+						saving;
+	}
+
+	@Override
+	public String toString()
+	{
+		return "Transaction [_id=" + _id +
+						", transDate=" +
+						transDate +
+						", discription=" +
+						discription +
+						", gas=" + gas +
+						", service=" +
+						service + ", john=" +
+						john + ", pastor=" +
+						pastor + ", med=" +
+						med + ", school=" +
+						school + ", misc=" +
+						misc + ", tax=" +
+						tax + ", saving=" +
+						saving +
+						", saving_other=" +
+						saving_other +
+						", transactionTotal=" +
+						transactionTotal +
+						"]";
 	}
 
 }

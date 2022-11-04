@@ -30,12 +30,16 @@ public class EditCell<S, T> extends TextFieldTableCell<S, T>
 		super(converter);
 	}
 
-	public static <S> Callback<TableColumn<S, String>, TableCell<S, String>> forTableColumn()
+	public static <S>
+					Callback<TableColumn<S, String>, TableCell<S, String>>
+					forTableColumn()
 	{
 		return forTableColumn(new DefaultStringConverter());
 	}
 
-	public static <S, T> Callback<TableColumn<S, T>, TableCell<S, T>> forTableColumn(final StringConverter<T> converter)
+	public static <S, T>
+					Callback<TableColumn<S, T>, TableCell<S, T>>
+					forTableColumn(final StringConverter<T> converter)
 	{
 		return list -> new EditCell<S, T>(converter);
 	}
@@ -43,8 +47,9 @@ public class EditCell<S, T> extends TextFieldTableCell<S, T>
 	@Override
 	public void startEdit()
 	{
-		if (!isEditable()
-						|| !getTableView().isEditable() || !getTableColumn().isEditable())
+		if (!isEditable() ||
+						!getTableView().isEditable() ||
+						!getTableColumn().isEditable())
 		{
 			return;
 		}
@@ -146,7 +151,10 @@ public class EditCell<S, T> extends TextFieldTableCell<S, T>
 		textField.focusedProperty().addListener(new ChangeListener<Boolean>()
 		{
 			@Override
-			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue)
+			public void changed(
+							ObservableValue<? extends Boolean> observable,
+							Boolean oldValue,
+							Boolean newValue)
 			{
 				if (!newValue)
 				{
@@ -178,22 +186,27 @@ public class EditCell<S, T> extends TextFieldTableCell<S, T>
 				cancelEdit();
 				event.consume();
 			}
-			else if (event.getCode() == KeyCode.RIGHT || event.getCode() == KeyCode.TAB)
+			else if (event.getCode()
+							== KeyCode.RIGHT ||
+							event.getCode() == KeyCode.TAB)
 			{
 				getTableView().getSelectionModel().selectNext();
 				event.consume();
 			}
-			else if (event.getCode() == KeyCode.LEFT)
+			else if (event.getCode()
+							== KeyCode.LEFT)
 			{
 				getTableView().getSelectionModel().selectPrevious();
 				event.consume();
 			}
-			else if (event.getCode() == KeyCode.UP)
+			else if (event.getCode()
+							== KeyCode.UP)
 			{
 				getTableView().getSelectionModel().selectAboveCell();
 				event.consume();
 			}
-			else if (event.getCode() == KeyCode.DOWN)
+			else if (event.getCode()
+							== KeyCode.DOWN)
 			{
 				getTableView().getSelectionModel().selectBelowCell();
 				event.consume();
@@ -205,7 +218,8 @@ public class EditCell<S, T> extends TextFieldTableCell<S, T>
 
 	private String getItemText()
 	{
-		return getConverter() == null ? getItem() == null ? "" : getItem().toString() : getConverter().toString(getItem());
+		return getConverter() == null ? getItem()
+						== null ? "" : getItem().toString() : getConverter().toString(getItem());
 	}
 
 	private void updateItem()
@@ -234,7 +248,8 @@ public class EditCell<S, T> extends TextFieldTableCell<S, T>
 		}
 	}
 
-	private void startEdit(final TextField textField)
+	private void startEdit(
+					final TextField textField)
 	{
 		if (textField != null)
 		{
