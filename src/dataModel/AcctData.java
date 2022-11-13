@@ -326,7 +326,7 @@ public class AcctData
 								COL_TRANSACTIONS_GAS +
 								part2;
 				updateInTransaction = conn.prepareStatement(update_transaction);
-				updateInTransaction.setDouble(1, transactionData.getDoubleGas());
+				updateInTransaction.setDouble(1, transactionData.getGas());
 				updateInTransaction.setInt(2, transactionData.get_id());
 
 				System.out.println("[AcctData 328] -  " +
@@ -339,7 +339,7 @@ public class AcctData
 								COL_TRANSACTIONS_SERVICE +
 								part2;
 				updateInTransaction = conn.prepareStatement(update_transaction);
-				updateInTransaction.setDouble(1, transactionData.getDoubleService());
+				updateInTransaction.setDouble(1, transactionData.getService());
 				updateInTransaction.setInt(2, transactionData.get_id());
 
 				System.out.println("[AcctData 340] -  " +
@@ -352,7 +352,7 @@ public class AcctData
 								COL_TRANSACTIONS_JOHN +
 								part2;
 				updateInTransaction = conn.prepareStatement(update_transaction);
-				updateInTransaction.setDouble(1, transactionData.getDoubleJohn());
+				updateInTransaction.setDouble(1, transactionData.getJohn());
 				updateInTransaction.setInt(2, transactionData.get_id());
 
 				System.out.println("[AcctData 352] -  " +
@@ -365,7 +365,7 @@ public class AcctData
 								COL_TRANSACTIONS_PASTOR +
 								part2;
 				updateInTransaction = conn.prepareStatement(update_transaction);
-				updateInTransaction.setDouble(1, transactionData.getDoublePastor());
+				updateInTransaction.setDouble(1, transactionData.getPastor());
 				updateInTransaction.setInt(2, transactionData.get_id());
 
 				System.out.println("[AcctData 3364] -  " +
@@ -378,7 +378,7 @@ public class AcctData
 								COL_TRANSACTIONS_MED +
 								part2;
 				updateInTransaction = conn.prepareStatement(update_transaction);
-				updateInTransaction.setDouble(1, transactionData.getDoubleMed());
+				updateInTransaction.setDouble(1, transactionData.getMed());
 				updateInTransaction.setInt(2, transactionData.get_id());
 
 				System.out.println("[AcctData 376] -  " +
@@ -391,7 +391,7 @@ public class AcctData
 								COL_TRANSACTIONS_SCHOOL +
 								part2;
 				updateInTransaction = conn.prepareStatement(update_transaction);
-				updateInTransaction.setDouble(1, transactionData.getDoubleSchool());
+				updateInTransaction.setDouble(1, transactionData.getSchool());
 				updateInTransaction.setInt(2, transactionData.get_id());
 
 				System.out.println("[AcctData 388] -  " +
@@ -404,7 +404,7 @@ public class AcctData
 								COL_TRANSACTIONS_MISC +
 								part2;
 				updateInTransaction = conn.prepareStatement(update_transaction);
-				updateInTransaction.setDouble(1, transactionData.getDoubleMisc());
+				updateInTransaction.setDouble(1, transactionData.getMisc());
 				updateInTransaction.setInt(2, transactionData.get_id());
 
 				System.out.println("[AcctData 400] -  " +

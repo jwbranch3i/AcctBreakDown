@@ -7,10 +7,18 @@ GridPane
 StackPane
 {
 	-fx-background-color: lightblue;
-	
 }
 
-#hbox_Total
+ .table-row-cell:odd{
+    -fx-background-color: white;
+}
+
+.table-row-cell:even{
+    -fx-background-color: lightblue;
+}
+
+
+hbox_Total
 {
 	-fx-border-width:3;	
 	-fx-border-style:solid;

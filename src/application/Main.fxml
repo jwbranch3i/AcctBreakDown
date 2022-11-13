@@ -98,15 +98,15 @@
               <columns>
                 <TableColumn fx:id="colDate" maxWidth="400.0" prefWidth="75.0" sortable="false" text="Date" />
 
-                <TableColumn fx:id="colDiscription" editable="true" maxWidth="400.0" prefWidth="300.0" text="Discription" />
-                  <TableColumn fx:id="colGas" editable="true" maxWidth="400.0" prefWidth="75.0" text="Gas" />
-                  <TableColumn fx:id="colService" editable="true" maxWidth="400.0" prefWidth="75.0" text="Service" />
-                  <TableColumn fx:id="colJohn" editable="true" maxWidth="400.0" prefWidth="75.0" text="John" />
-                  <TableColumn fx:id="colPastor" editable="true" maxWidth="400.0" prefWidth="75.0" text="Pastor" />
-                  <TableColumn fx:id="colMed" editable="true" maxWidth="400.0" prefWidth="75.0" text="Med" />
-                  <TableColumn fx:id="colSchool" editable="true" maxWidth="400.0" prefWidth="75.0" text="School" />
-                  <TableColumn fx:id="colMisc" editable="true" maxWidth="400.0" prefWidth="75.0" text="Misc" />
-                  <TableColumn id="totalColumn" fx:id="colTransactionTotal" editable="false" maxWidth="400.0" prefWidth="75.0" text="Total" />
+                <TableColumn fx:id="colDiscription" editable="true" maxWidth="400.0" prefWidth="300.0" style="-fx-aligment: LEFT;" text="Discription" />
+                  <TableColumn fx:id="colGas" editable="true" maxWidth="400.0" prefWidth="75.0" style="-fx-alignment: CENTER-RIGHT;" text="Gas" />
+                  <TableColumn fx:id="colService" editable="true" maxWidth="400.0" prefWidth="75.0" style="-fx-alignment: CENTER-RIGHT;" text="Service" />
+                  <TableColumn fx:id="colJohn" editable="true" maxWidth="400.0" prefWidth="75.0" style="-fx-alignment: CENTER-RIGHT;" text="John" />
+                  <TableColumn fx:id="colPastor" editable="true" maxWidth="400.0" prefWidth="75.0" style="-fx-alignment: CENTER-RIGHT;" text="Pastor" />
+                  <TableColumn fx:id="colMed" editable="true" maxWidth="400.0" prefWidth="75.0" style="-fx-alignment: CENTER-RIGHT;" text="Med" />
+                  <TableColumn fx:id="colSchool" editable="true" maxWidth="400.0" prefWidth="75.0" style="-fx-alignment: CENTER-RIGHT;" text="School" />
+                  <TableColumn fx:id="colMisc" editable="true" maxWidth="400.0" prefWidth="75.0" style="-fx-alignment: CENTER-RIGHT;" text="Misc" />
+                  <TableColumn id="totalColumn" fx:id="colTransactionTotal" editable="false" maxWidth="400.0" prefWidth="75.0" style="-fx-alignment: CENTER-RIGHT;" text="Total" />
               </columns>
             </TableView>
          </children>

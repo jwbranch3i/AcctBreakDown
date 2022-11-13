@@ -4,12 +4,10 @@ import java.util.Date;
 
 import javafx.util.converter.DateStringConverter;
 
-public class MyDateStringConverter
-				extends DateStringConverter
+public class MyDateStringConverter extends DateStringConverter
 {
 
-	public MyDateStringConverter(
-					final String pattern)
+	public MyDateStringConverter(final String pattern)
 	{
 		super(pattern);
 	}

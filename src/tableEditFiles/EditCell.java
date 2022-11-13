@@ -1,5 +1,6 @@
 package tableEditFiles;
 
+import application.Util;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -242,7 +243,24 @@ public class EditCell<S, T> extends TextFieldTableCell<S, T>
 			}
 			else
 			{
-				setText(getItemText());
+				String numFormated = "";
+				if (Util.isNumeric(getItemText()))
+				{
+					if (Util.makeStringDouble(getItemText()) == 0)
+					{
+						numFormated = "";
+					}
+					else
+					{
+						Double num = Util.round(Util.makeStringDouble(getItemText()), 2);
+						numFormated = String.format("%.2f", num);
+					}
+					setText(numFormated);
+				}
+				else
+				{
+					setText(getItemText());
+				}
 				setGraphic(null);
 			}
 		}
