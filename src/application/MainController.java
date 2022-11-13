@@ -18,6 +18,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TablePosition;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.KeyCode;
 import tableEditFiles.EditCell;
 import tableEditFiles.MyDateStringConverter;
@@ -91,15 +92,11 @@ public class MainController
 
 		colDate.setCellValueFactory(new PropertyValueFactory<TransactionData, Date>("transDate"));
 		colDate.setCellFactory(EditCell.<TransactionData, Date>forTableColumn(new MyDateStringConverter(DATE_PATTERN)));
-		colDate.setOnEditCommit(event ->
-		{
-			final Date value = event.getNewValue()
-							!= null ? event.getNewValue() : event.getOldValue();
-			((TransactionData) event.getTableView().getItems().get(event.getTablePosition().getRow())).setTransDate(value);
-			table.refresh();
-		});
+		colDate.setOnEditCommit(e -> colDate_OnEditCommit((Event) e));
 
 		colDiscription.setCellValueFactory(new PropertyValueFactory<TransactionData, String>("discription"));
+		colDiscription.setCellFactory(TextFieldTableCell.forTableColumn());
+		colDiscription.setOnEditCommit(e -> colDiscription_OnEditCommit((Event) e));
 
 		colGas.setCellValueFactory(new PropertyValueFactory<TransactionData, Double>("gas"));
 		colGas.setCellFactory(EditCell.<TransactionData, Double>forTableColumn(new MyDoubleStringConverter()));
@@ -340,8 +337,7 @@ public class MainController
 	}
 
 	@SuppressWarnings("unchecked")
-	public void colDiscription_OnEditCommit(
-					Event e)
+	public void colDiscription_OnEditCommit(Event e)
 	{
 		TableColumn.CellEditEvent<TransactionData, String> ce;
 		ce = (TableColumn.CellEditEvent<TransactionData, String>) e;
