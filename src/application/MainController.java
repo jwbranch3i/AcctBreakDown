@@ -226,55 +226,6 @@ public class MainController
 		return table.getVisibleLeafColumn(newColumnIndex);
 	}
 
-	// for input data from text fields
-	// @FXML
-	// private void submit(final ActionEvent event)
-	// {
-	// if (allFieldsValid())
-	// {
-	// final String firstName = firstNameTextField.getText();
-	// final String surname = surnameTextField.getText();
-	// Date dateOfBirth = null;
-	// try
-	// {
-	// dateOfBirth = DATE_FORMATTER.parse(dateOfBirthTextField.getText());
-	// }
-	// catch (final ParseException e)
-	// {
-	// }
-	// final String occupation = occupationTextField.getText();
-	// final double salary = Double.parseDouble(salaryTextField.getText());
-	// data.add(new PersonTableData(firstName, surname, dateOfBirth, occupation,
-	// salary));
-	// }
-	// }
-
-	// private boolean allFieldsValid()
-	// {
-	// return !firstNameTextField.getText().isEmpty()
-	// && !surnameTextField.getText().isEmpty()
-	// && dateOfBirthFieldValid()
-	// && !occupationTextField.getText().isEmpty()
-	// && !salaryTextField.getText().isEmpty();
-	// }
-	//
-	// private boolean dateOfBirthFieldValid()
-	// {
-	// if (!dateOfBirthTextField.getText().isEmpty())
-	// {
-	// try
-	// {
-	// DATE_FORMATTER.parse(dateOfBirthTextField.getText());
-	// return true;
-	// }
-	// catch (ParseException e)
-	// {
-	// return false;
-	// }
-	// }
-	// return false;
-	// }
-
 	/******************************************/
 	public void listTotals()
 	{
@@ -284,8 +235,7 @@ public class MainController
 		task.addEventHandler(WorkerStateEvent.WORKER_STATE_SUCCEEDED, new EventHandler<WorkerStateEvent>()
 		{
 			@Override
-			public void handle(
-							WorkerStateEvent t)
+			public void handle(WorkerStateEvent t)
 			{
 				ArrayList<Double> list = task.getValue();
 
@@ -299,8 +249,7 @@ public class MainController
 				totalMisc.setText(Util.makeDoubleString(list.get(6)));
 
 				Double sum = 0d;
-				for (int i = 0; i
-								< list.size(); i++)
+				for (int i = 0; i < list.size(); i++)
 				{
 					sum += list.get(i);
 				}
@@ -360,7 +309,17 @@ public class MainController
 			// Double temp = Double.parseDouble(ce.getNewValue());
 			Double temp = ce.getNewValue();
 
+			// update column total
 			totalGas.setText(Util.makeDoubleString(Double.parseDouble(totalGas.getText()) -
+							working.getGas() +
+							temp));
+
+			// update grand total
+			double current = Double.parseDouble(totalAcct.getText());
+			double old = working.getGas();
+			double newVal = temp;
+
+			totalAcct.setText(Util.makeDoubleString(Double.parseDouble(totalAcct.getText()) -
 							working.getGas() +
 							temp));
 
@@ -390,6 +349,11 @@ public class MainController
 							working.getService() +
 							temp));
 
+			// update grand total
+			totalAcct.setText(Util.makeDoubleString(Double.parseDouble(totalAcct.getText()) -
+							working.getService() +
+							temp));
+
 			working.setService(temp);
 		}
 		catch (NumberFormatException ex)
@@ -413,6 +377,11 @@ public class MainController
 			// Double temp = Double.parseDouble(ce.getNewValue());
 			Double temp = ce.getNewValue();
 			totalJohn.setText(Util.makeDoubleString(Double.parseDouble(totalJohn.getText()) -
+							working.getJohn() +
+							temp));
+
+			// update grand total
+			totalAcct.setText(Util.makeDoubleString(Double.parseDouble(totalAcct.getText()) -
 							working.getJohn() +
 							temp));
 
@@ -442,6 +411,11 @@ public class MainController
 							working.getPastor() +
 							temp));
 
+			// update grand total
+			totalAcct.setText(Util.makeDoubleString(Double.parseDouble(totalAcct.getText()) -
+							working.getPastor() +
+							temp));
+
 			working.setPastor(temp);
 		}
 		catch (NumberFormatException ex)
@@ -465,6 +439,11 @@ public class MainController
 			// Double temp = Double.parseDouble(ce.getNewValue());
 			Double temp = ce.getNewValue();
 			totalMed.setText(Util.makeDoubleString(Double.parseDouble(totalMed.getText()) -
+							working.getMed() +
+							temp));
+
+			// update grand total
+			totalAcct.setText(Util.makeDoubleString(Double.parseDouble(totalAcct.getText()) -
 							working.getMed() +
 							temp));
 
@@ -495,6 +474,11 @@ public class MainController
 							working.getSchool() +
 							temp));
 
+			// update grand total
+			totalAcct.setText(Util.makeDoubleString(Double.parseDouble(totalAcct.getText()) -
+							working.getSchool() +
+							temp));
+
 			working.setSchool(temp);
 		}
 		catch (NumberFormatException ex)
@@ -518,6 +502,11 @@ public class MainController
 			// Double temp = Double.parseDouble(ce.getNewValue());
 			Double temp = ce.getNewValue();
 			totalMisc.setText(Util.makeDoubleString(Double.parseDouble(totalMisc.getText()) -
+							working.getMisc() +
+							temp));
+
+			// update grand total
+			totalAcct.setText(Util.makeDoubleString(Double.parseDouble(totalAcct.getText()) -
 							working.getMisc() +
 							temp));
 

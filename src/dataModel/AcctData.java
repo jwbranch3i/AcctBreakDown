@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import application.Util;
+
 public class AcctData
 {
 
@@ -308,6 +310,17 @@ public class AcctData
 		{
 			switch (changedColumn)
 			{
+			case COL_TRANSACTIONS_DATE:
+				update_transaction = part1 + COL_TRANSACTIONS_DATE + part2;
+				updateInTransaction = conn.prepareStatement(update_transaction);
+				updateInTransaction.setString(1, Util.dateToString(transactionData.getTransDate()));
+				updateInTransaction.setInt(2, transactionData.get_id());
+
+				System.out.println("[AcctData 316] -  " +
+								updateInTransaction.toString());
+				updateInTransaction.executeUpdate();
+				break;
+
 			case COL_TRANSACTIONS_DISCRIPTION:
 				update_transaction = part1 +
 								COL_TRANSACTIONS_DISCRIPTION +

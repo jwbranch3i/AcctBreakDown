@@ -2,6 +2,8 @@ package application;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class Util
 {
@@ -38,5 +40,12 @@ public class Util
 		{
 			return false;
 		}
+	}
+
+	public static String dateToString(Date inDate)
+	{
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+		String outDate = formatter.format(inDate);
+		return outDate;
 	}
 }
